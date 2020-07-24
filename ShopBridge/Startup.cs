@@ -1,19 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 namespace ShopBridge
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.EntityFrameworkCore;
+
+    
+    using Shopbridge.Database;
+    using ShopBridge.Configuration;
+
+    using Serilog;
+
     public class Startup
     {
+        private const string AllowEverythingCorsPolicyName = "AllowEverything";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +28,24 @@ namespace ShopBridge
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSpaStaticFiles(options => options.RootPath = "shopbridge-web/dist");
+            services.ConfigureServices();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowEverythingCorsPolicyName,
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin();
+                    }
+                );
+            });
+
+            services.AddDbContext<ShopBridgeDbContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("ShopBridge"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,13 +56,29 @@ namespace ShopBridge
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(AllowEverythingCorsPolicyName);
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
             app.UseRouting();
+            app.UseSerilogRequestLogging();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "shopbridge-web";
+                if (env.IsDevelopment())
+                {
+
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+                }
             });
         }
     }

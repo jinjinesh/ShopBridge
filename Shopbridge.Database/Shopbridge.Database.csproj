@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200724154720_Add_Item.cs" />
+    <Compile Remove="Migrations\20200724154720_Add_Item.Designer.cs" />
+    <Compile Remove="Migrations\20200724154817_Add_Item.cs" />
+    <Compile Remove="Migrations\20200724154817_Add_Item.Designer.cs" />
+    <Compile Remove="Migrations\20200724212909_AddItem.cs" />
+    <Compile Remove="Migrations\20200724212909_AddItem.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shopbridge.Models\Shopbridge.Models.csproj" />
+  </ItemGroup>
+
+</Project>
