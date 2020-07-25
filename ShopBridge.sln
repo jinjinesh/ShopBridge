@@ -10,16 +10,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge", "ShopBridge\Sh
 		{3771E3BB-53A1-414A-8621-6348B717D2A1} = {3771E3BB-53A1-414A-8621-6348B717D2A1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopbridge.Models", "Shopbridge.Models\Shopbridge.Models.csproj", "{33E42E63-8AE9-423E-BDF8-F906C5D55510}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopbridge.Models", "Shopbridge.Models\Shopbridge.Models.csproj", "{33E42E63-8AE9-423E-BDF8-F906C5D55510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopbridge.Database", "Shopbridge.Database\Shopbridge.Database.csproj", "{3771E3BB-53A1-414A-8621-6348B717D2A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopbridge.Database", "Shopbridge.Database\Shopbridge.Database.csproj", "{3771E3BB-53A1-414A-8621-6348B717D2A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{33E42E63-8AE9-423E-BDF8-F906C5D55510} = {33E42E63-8AE9-423E-BDF8-F906C5D55510}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopBridge.Application", "ShopBridge.Application\ShopBridge.Application.csproj", "{32989967-443B-44F3-8E1C-9C8CAAA66943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Application", "ShopBridge.Application\ShopBridge.Application.csproj", "{32989967-443B-44F3-8E1C-9C8CAAA66943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopBridge.Contracts", "ShopBridge.Contracts\ShopBridge.Contracts.csproj", "{EB3FC715-C176-4E69-9FAA-86399098C02F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Contracts", "ShopBridge.Contracts\ShopBridge.Contracts.csproj", "{EB3FC715-C176-4E69-9FAA-86399098C02F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopBridge.Test", "ShopBridge.Test\ShopBridge.Test.csproj", "{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{EB3FC715-C176-4E69-9FAA-86399098C02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB3FC715-C176-4E69-9FAA-86399098C02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB3FC715-C176-4E69-9FAA-86399098C02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

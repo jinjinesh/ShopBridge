@@ -36,7 +36,7 @@
         public async Task<WebResponseDto<List<ItemDto>>> GetItems()
         {
             var items = await ItemRepository.GetAll().ToListAsync();
-            return WebResponseDto<List<ItemDto>>.For(
+            return WebResponseDto.For(
                 items.Select(ItemConverter.ToDto).ToList(),
                 Status.Ok
             );

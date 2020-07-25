@@ -9,14 +9,12 @@
         public ItemValidator()
         {
             RuleFor(r => r.Name)
-                .NotEmpty()
-                .NotNull()
+                .SetValidator(new NotNullNotEmptyValidator())
                 .Length(1, 100)
                 .WithMessage("Name is mandatory");
 
             RuleFor(r => r.Description)
-                .NotEmpty()
-                .NotNull()
+                .SetValidator(new NotNullNotEmptyValidator())
                 .Length(1, 500)
                 .WithMessage("Description is mandatory");
 
