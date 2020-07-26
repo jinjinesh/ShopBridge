@@ -1,30 +1,42 @@
 ﻿namespace Shopbridge.Database.UnitOfWork
 {
+    using System;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
 
     public class EntityDatabaseTransaction : ITransaction
     {
-        private readonly IDbContextTransaction Transaction;
+        private readonly IDbContextTransaction transaction;
+        private bool disposed;
 
         public EntityDatabaseTransaction(DbContext context)
         {
-            Transaction = context.Database.BeginTransaction();
+            transaction = context.Database.BeginTransaction();
         }
 
         public void Commit()
         {
-            Transaction.Commit();
+            transaction.Commit();
         }
 
         public void Rollback()
         {
-            Transaction.Rollback();
+            transaction.Rollback();
         }
 
         public void Dispose()
         {
-            Transaction.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed && disposing)
+            {
+                transaction.Dispose();
+            }
+            disposed = true;
         }
     }
 }

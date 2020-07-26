@@ -3,21 +3,8 @@
     using System;
     using System.Text;
 
-    public class Helper
+    public static class Helper
     {
-        public static ulong RandomULong(ulong min, ulong max)
-        {
-            var random = new Random(Guid.NewGuid().GetHashCode());
-            var hight = random.Next((int)(min >> 32), (int)(max >> 32));
-            var minLow = Math.Min((int)min, (int)max);
-            var maxLow = Math.Max((int)min, (int)max);
-            var low = (uint)random.Next(minLow, maxLow);
-            var result = (ulong)hight;
-            result <<= 32;
-            result |= (ulong)low;
-            return result;
-        }
-
         public static decimal RandomDecimal(long integerPartMaxNo, long decimalPartMaxNo)
         {
             var integerPartAsLong = RandomLong(1, integerPartMaxNo);
@@ -29,11 +16,6 @@
             var decimalPart = (decimal)(decimalPartAsLong / divideWith);
 
             return integerPartAsLong + decimalPart;
-        }
-
-        public static long RandomLong(long min, long max)
-        {
-            return min + (long)RandomULong(0, (ulong)Math.Abs(max - min));
         }
 
         public static string RandomString(int length)
@@ -60,6 +42,24 @@
                 letterString.Append(c);
             }
             return letterString.ToString();
+        }
+
+        private static long RandomLong(long min, long max)
+        {
+            return min + (long)RandomULong(0, (ulong)Math.Abs(max - min));
+        }
+
+        private static ulong RandomULong(ulong min, ulong max)
+        {
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            var high = random.Next((int)(min >> 32), (int)(max >> 32));
+            var minLow = Math.Min((int)min, (int)max);
+            var maxLow = Math.Max((int)min, (int)max);
+            var low = (uint)random.Next(minLow, maxLow);
+            var result = (ulong)high;
+            result <<= 32;
+            result |= low;
+            return result;
         }
     }
 }

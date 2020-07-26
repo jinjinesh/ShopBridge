@@ -1,7 +1,6 @@
 ﻿namespace ShopBridge.Contracts.Common
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     public class ResponseDto
     {

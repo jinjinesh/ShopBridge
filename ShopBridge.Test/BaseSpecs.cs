@@ -7,12 +7,10 @@
 
     using Shopbridge.Database;
 
-    using NUnit.Framework;
-
     public class BaseSpecs
     {
-        protected ShopBridgeDbContext shopBridgeDbContext;
-        protected ILoggerFactory loggerFactory;
+        protected ShopBridgeDbContext ShopBridgeDbContext;
+        protected ILoggerFactory LoggerFactory;
 
         protected void SetupDbAndLogger()
         {
@@ -21,9 +19,9 @@
                 .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning))
                 .Options;
 
-            shopBridgeDbContext = new ShopBridgeDbContext(options);
+            ShopBridgeDbContext = new ShopBridgeDbContext(options);
             var serviceProvider = new ServiceCollection().AddLogging().BuildServiceProvider();
-            loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+            LoggerFactory = serviceProvider.GetService<ILoggerFactory>();
         }
     }
 }

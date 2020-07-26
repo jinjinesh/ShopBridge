@@ -47,6 +47,7 @@
             var item = await ItemRepository.FindAsync(id);
             if (item == null)
             {
+                Logger.LogError($"Item not found for id {id}");
                 return WebResponseDto.For<ItemDto>(Severity.Error, $"Item not found for id {id}");
             }
             return WebResponseDto.For(
@@ -59,6 +60,7 @@
         {
             if (item == null)
             {
+                Logger.LogError("Item is null");
                 return WebResponseDto.For<ItemDto>(Severity.Error, "Item is null");
             }
 
@@ -66,6 +68,7 @@
 
             if (!validationResult.IsValid)
             {
+                Logger.LogError("validation failed");
                 var outcomeFeedback = ValidatorFeedbackConverter.ToFeedback(validationResult.Errors);
                 return WebResponseDto.For(item, Status.Failure, outcomeFeedback);
             }
@@ -86,16 +89,19 @@
         {
             if (id == Guid.Empty)
             {
-                return WebResponseDto.For<ItemDto>(Severity.Error, "id is null or empty");
+                Logger.LogError("Id is null or empty");
+                return WebResponseDto.For<ItemDto>(Severity.Error, "Id is null or empty");
             }
 
             if (item == null)
             {
+                Logger.LogError("Item is null");
                 return WebResponseDto.For<ItemDto>(Severity.Error, "Item is null");
             }
 
             if (id != item.Id)
             {
+                Logger.LogError("Id is mismatch");
                 return WebResponseDto.For<ItemDto>(Severity.Error, "Id is mismatch");
             }
 
@@ -103,6 +109,7 @@
 
             if (!validationResult.IsValid)
             {
+                Logger.LogError("validation failed");
                 var outcomeFeedback = ValidatorFeedbackConverter.ToFeedback(validationResult.Errors);
                 return WebResponseDto.For(item, Status.Failure, outcomeFeedback);
             }
@@ -113,6 +120,7 @@
 
                 if (fetchItem == null)
                 {
+                    Logger.LogError($"Item not found for id {id}");
                     return WebResponseDto.For<ItemDto>(Severity.Error, $"Item not found for id {id}");
                 }
 
@@ -132,13 +140,15 @@
         {
             if (id == Guid.Empty)
             {
-                return WebResponseDto.For<bool>(Severity.Error, "id is null or empty");
+                Logger.LogError("Id is null or empty");
+                return WebResponseDto.For<bool>(Severity.Error, "Id is null or empty");
             }
 
             var fetchItem = await ItemRepository.FindAsync(id);
 
             if (fetchItem == null)
             {
+                Logger.LogError($"Item not found for id {id}");
                 return WebResponseDto.For<bool>(Severity.Error, $"Item not found for id {id}");
             }
 

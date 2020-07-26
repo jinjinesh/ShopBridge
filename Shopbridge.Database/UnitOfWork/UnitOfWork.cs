@@ -1,10 +1,8 @@
 ﻿namespace Shopbridge.Database.UnitOfWork
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Shopbridge.Database.Repository;
 
     public class UnitOfWork : IUnitOfWork
     {
@@ -26,7 +24,7 @@
             return new EntityDatabaseTransaction(context);
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);

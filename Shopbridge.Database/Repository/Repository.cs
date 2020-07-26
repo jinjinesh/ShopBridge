@@ -1,7 +1,6 @@
 ﻿namespace Shopbridge.Database.Repository
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -11,42 +10,27 @@
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ShopBridgeDbContext context;
-        private DbSet<T> Entities;
+        private readonly DbSet<T> entities;
 
         public Repository(ShopBridgeDbContext context)
         {
             this.context = context;
-            Entities = context.Set<T>();
-        }
-
-        public Task<bool> AnyAsync()
-        {
-            return Entities.AnyAsync();
-        }
-
-        public T Find(object id)
-        {
-            return Entities.Find(id);
+            entities = context.Set<T>();
         }
 
         public ValueTask<T> FindAsync(object id)
         {
-            return Entities.FindAsync(id);
+            return entities.FindAsync(id);
         }
 
         public IQueryable<T> GetAll()
         {
-            return Entities;
+            return entities;
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
-        {
-            return Entities.Where(predicate);
-        }
-        
         public Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return Entities.FirstOrDefaultAsync(predicate);
+            return entities.FirstOrDefaultAsync(predicate);
         }
 
         public ValueTask<EntityEntry<T>> InsertAsync(T entity)
@@ -56,7 +40,7 @@
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return Entities.AddAsync(entity);
+            return entities.AddAsync(entity);
         }
 
         public void Update(T entity)
@@ -74,7 +58,7 @@
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            Entities.Remove(entity);
+            entities.Remove(entity);
         }
 
         public async Task SaveChangesAsync()

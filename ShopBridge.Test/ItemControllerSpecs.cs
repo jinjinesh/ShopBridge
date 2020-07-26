@@ -26,18 +26,17 @@
         public void Setup()
         {
             SetupDbAndLogger();
-            var itemControllerLogger = loggerFactory.CreateLogger<ItemController>();
-            var itemServiceLogger = loggerFactory.CreateLogger<ItemService>();
-            var unitOfWork = new UnitOfWork(shopBridgeDbContext);
-            var itemRepository = new Repository<Item>(shopBridgeDbContext);
+            var itemServiceLogger = LoggerFactory.CreateLogger<ItemService>();
+            var unitOfWork = new UnitOfWork(ShopBridgeDbContext);
+            var itemRepository = new Repository<Item>(ShopBridgeDbContext);
             var itemService = new ItemService(unitOfWork, itemRepository, itemServiceLogger);
-            itemController = new ItemController(itemService, itemControllerLogger);
+            itemController = new ItemController(itemService);
         }
 
         [TearDown]
         public void TearDown()
         {
-            shopBridgeDbContext.Dispose();
+            ShopBridgeDbContext.Dispose();
         }
 
         #endregion

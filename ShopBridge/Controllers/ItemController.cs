@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
+    
 
     using ShopBridge.Contracts.Common;
     using ShopBridge.Contracts.Dto;
@@ -15,12 +15,10 @@
     public class ItemController : ControllerBase
     {
         private readonly IItemService ItemService;
-        private readonly ILogger<ItemController> Logger;
 
-        public ItemController(IItemService itemService, ILogger<ItemController> logger)
+        public ItemController(IItemService itemService)
         {
             ItemService = itemService;
-            Logger = logger;
         }
 
 
