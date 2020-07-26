@@ -28,11 +28,6 @@
             });
         }
 
-        public void SetMessage(string message)
-        {
-            Response.Message = message;
-        }
-
         public void SetStatus(Status status)
         {
             Response.StatusCode = status;
@@ -91,15 +86,6 @@
         {
             Data = data;
             Response = response;
-        }
-
-        public WebResponseDto(T data, List<Feedback> feedback)
-        {
-            Data = data;
-            Response = new ResponseDto
-            {
-                Feedback = feedback
-            };
         }
     }
 }

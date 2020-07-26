@@ -1,15 +1,13 @@
 ﻿namespace Shopbridge.Database.UnitOfWork
 {
+    using System;
     using System.Threading.Tasks;
 
     using Shopbridge.Database.Repository;
 
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        void SetRepository<T>(IRepository<T> repository) where T : class;
-        Repository<T> Repository<T>() where T : class;
         Task<int> SaveChangesAsync();
-        void Dispose();
         ITransaction BeginTransaction();
     }
 }

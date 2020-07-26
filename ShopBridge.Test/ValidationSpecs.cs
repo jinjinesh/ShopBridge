@@ -16,15 +16,10 @@
             Assert.IsTrue(result.IsValid);
         }
 
-        public void ShouldNotBeValid(T obj, string errorMessage = null)
+        public void ShouldNotBeValid(T obj)
         {
             var result = Validator.Validate(obj);
             Assert.IsFalse(result.IsValid);
-
-            if (errorMessage != null)
-            {
-                Assert.AreEqual(errorMessage, result.Errors.FirstOrDefault(x => x.ErrorMessage == errorMessage)?.ErrorMessage);
-            }
         }
     }
 }
