@@ -6,8 +6,7 @@ namespace ShopBridge
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.EntityFrameworkCore;
-
-    
+    using Newtonsoft.Json;
     using Shopbridge.Database;
     using ShopBridge.Configuration;
 
@@ -26,7 +25,9 @@ namespace ShopBridge
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc(options => options.EnableEndpointRouting = false)
+                .AddNewtonsoftJson(x => x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
+
             services.AddSpaStaticFiles(options => options.RootPath = "shopbridge-web/dist");
             services.ConfigureServices();
             services.AddCors(options =>
@@ -42,6 +43,8 @@ namespace ShopBridge
                 );
             });
 
+            services.ConfigureSwaggerServices();
+
             services.AddDbContext<ShopBridgeDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("ShopBridge"))
             );
@@ -54,29 +57,33 @@ namespace ShopBridge
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
 
             app.UseCors(AllowEverythingCorsPolicyName);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseRouting();
             app.UseSerilogRequestLogging();
+            app.ConfigureSwagger();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllers();
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
             });
-            app.UseSpaStaticFiles();
+
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "shopbridge-web";
                 if (env.IsDevelopment())
                 {
 
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                 }
             });
         }

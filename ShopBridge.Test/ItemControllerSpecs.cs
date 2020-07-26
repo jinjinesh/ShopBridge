@@ -73,7 +73,7 @@
             Assert.NotNull(createdItem);
             Assert.NotNull(createdItem.Data);
             Assert.AreEqual(Status.Failure, createdItem.Response.StatusCode);
-            Assert.IsTrue(createdItem.Response.Feedback.Any());
+            Assert.IsTrue(createdItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -95,7 +95,7 @@
             Assert.NotNull(fetchItem);
             Assert.Null(fetchItem.Data);
             Assert.AreEqual(Status.Failure, fetchItem.Response.StatusCode);
-            Assert.IsTrue(fetchItem.Response.Feedback.Any());
+            Assert.IsTrue(fetchItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -131,7 +131,7 @@
             Assert.NotNull(updateItem);
             Assert.Null(updateItem.Data);
             Assert.AreEqual(Status.Failure, updateItem.Response.StatusCode);
-            Assert.IsTrue(updateItem.Response.Feedback.Any());
+            Assert.IsTrue(updateItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -141,7 +141,7 @@
             Assert.NotNull(updateItem);
             Assert.Null(updateItem.Data);
             Assert.AreEqual(Status.Failure, updateItem.Response.StatusCode);
-            Assert.IsTrue(updateItem.Response.Feedback.Any());
+            Assert.IsTrue(updateItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -151,7 +151,7 @@
             Assert.NotNull(updateItem);
             Assert.Null(updateItem.Data);
             Assert.AreEqual(Status.Failure, updateItem.Response.StatusCode);
-            Assert.IsTrue(updateItem.Response.Feedback.Any());
+            Assert.IsTrue(updateItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -166,7 +166,7 @@
             Assert.NotNull(updateItem);
             Assert.NotNull(updateItem.Data);
             Assert.AreEqual(Status.Failure, updateItem.Response.StatusCode);
-            Assert.IsTrue(updateItem.Response.Feedback.Any());
+            Assert.IsTrue(updateItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -177,7 +177,7 @@
             Assert.NotNull(updateItem);
             Assert.Null(updateItem.Data);
             Assert.AreEqual(Status.Failure, updateItem.Response.StatusCode);
-            Assert.IsTrue(updateItem.Response.Feedback.Any());
+            Assert.IsTrue(updateItem.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -198,7 +198,7 @@
             Assert.NotNull(deleteResponse);
             Assert.AreEqual(Status.Failure, deleteResponse.Response.StatusCode);
             Assert.IsFalse(deleteResponse.Data);
-            Assert.IsTrue(deleteResponse.Response.Feedback.Any());
+            Assert.IsTrue(deleteResponse.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         [Test]
@@ -208,7 +208,7 @@
             Assert.NotNull(deleteResponse);
             Assert.AreEqual(Status.Failure, deleteResponse.Response.StatusCode);
             Assert.IsFalse(deleteResponse.Data);
-            Assert.IsTrue(deleteResponse.Response.Feedback.Any());
+            Assert.IsTrue(deleteResponse.Response.Feedback.Any(x => !string.IsNullOrWhiteSpace(x.Message) && x.Severity == Severity.Error));
         }
 
         #endregion

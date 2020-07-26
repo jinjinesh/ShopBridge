@@ -82,7 +82,14 @@
                 transaction.Commit();
             }
 
-            return WebResponseDto.For(ItemConverter.ToDto(itemData), Status.Ok);
+            return WebResponseDto.For(ItemConverter.ToDto(itemData), Status.Ok, new List<Feedback>
+            {
+                new Feedback
+                {
+                    Message = "Item Created Successfully!",
+                    Severity = Severity.Info
+                }
+            });
         }
 
         public async Task<WebResponseDto<ItemDto>> UpdateItem(Guid id, ItemDto item)
@@ -127,12 +134,21 @@
                 fetchItem.Name = item.Name;
                 fetchItem.Description = item.Description;
                 fetchItem.Price = item.Price;
-                fetchItem.ImageData = item.ImageData;
+                fetchItem.ImageData = !string.IsNullOrWhiteSpace(item.ImageData)
+                    ? Convert.FromBase64String(item.ImageData)
+                    : default;
 
                 ItemRepository.Update(fetchItem);
                 await UnitOfWork.SaveChangesAsync().ConfigureAwait(false);
                 transaction.Commit();
-                return WebResponseDto.For(ItemConverter.ToDto(fetchItem), Status.Ok);
+                return WebResponseDto.For(ItemConverter.ToDto(fetchItem), Status.Ok, new List<Feedback>
+                {
+                    new Feedback
+                    {
+                        Message = "Item Updated Successfully!",
+                        Severity = Severity.Info
+                    }
+                });
             }
         }
 
@@ -154,7 +170,14 @@
 
             ItemRepository.Delete(fetchItem);
             await ItemRepository.SaveChangesAsync().ConfigureAwait(false);
-            return WebResponseDto.For(true, Status.Ok);
+            return WebResponseDto.For(true, Status.Ok, new List<Feedback>()
+            {
+                new Feedback
+                {
+                    Message = "Item deleted Successfully!",
+                    Severity = Severity.Info
+                }
+            });
         }
     }
 }

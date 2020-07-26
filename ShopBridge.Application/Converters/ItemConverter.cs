@@ -1,5 +1,7 @@
 ﻿namespace ShopBridge.Application.Converters
 {
+    using System;
+
     using ShopBridge.Contracts.Dto;
     using Shopbridge.Models;
 
@@ -14,8 +16,10 @@
             {
                 Name = model.Name,
                 Description = model.Description,
-                ImageData = model.ImageData,
-                Price = model.Price
+                Price = model.Price,
+                ImageData = model.ImageData != null
+                        ? Convert.ToBase64String(model.ImageData, 0, model.ImageData.Length) 
+                        : default
             };
 
             BaseConverter.ToDto(dto, model);
@@ -32,7 +36,9 @@
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price,
-                ImageData = dto.ImageData
+                ImageData = !string.IsNullOrWhiteSpace(dto.ImageData) 
+                    ? Convert.FromBase64String(dto.ImageData)
+                    : default
             };
             BaseConverter.ToModel(model, dto);
             return model;
