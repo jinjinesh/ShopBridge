@@ -22,6 +22,14 @@
     <ProjectReference Include="..\ShopBridge.Contracts\ShopBridge.Contracts.csproj" />
     <ProjectReference Include="..\Shopbridge.Database\Shopbridge.Database.csproj" />
   </ItemGroup>
-
+  <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; shopbridge-web\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 
 </Project>
