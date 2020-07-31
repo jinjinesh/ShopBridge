@@ -1,11 +1,6 @@
 # ShopBridge
 
-Building vue code
-1) Goto folder "ShopBridge\ShopBridge\shopbridge-web"
-2) Run command "npm install"
-3) Run command "npm run build"
- 
-Building C# code
+Building code
 1) Goto folder "Shopbridge" i.e. root directory
 2) Run command "dotnet restore"
 3) Run command "dotnet build -c Release"
