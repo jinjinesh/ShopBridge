@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Application", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Contracts", "ShopBridge.Contracts\ShopBridge.Contracts.csproj", "{EB3FC715-C176-4E69-9FAA-86399098C02F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopBridge.Test", "ShopBridge.Test\ShopBridge.Test.csproj", "{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Test", "ShopBridge.Test\ShopBridge.Test.csproj", "{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopBridge.Migration", "ShopBridge.Migration\ShopBridge.Migration.csproj", "{BCC398DE-ECAE-4E07-A25F-28DA4F50FA7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C035692-EE27-4835-80DE-B2A0DE7AC4A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC398DE-ECAE-4E07-A25F-28DA4F50FA7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC398DE-ECAE-4E07-A25F-28DA4F50FA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC398DE-ECAE-4E07-A25F-28DA4F50FA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC398DE-ECAE-4E07-A25F-28DA4F50FA7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
