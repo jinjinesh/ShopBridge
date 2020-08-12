@@ -57,6 +57,27 @@ pipeline {
 				publishCoverage adapters: [opencoverAdapter(mergeToOneReport: true, path: 'ShopBridge.Test/TestResults/coverage.opencover.xml')], sourceFileResolver: sourceFiles('NEVER_STORE')
 			}
 		}
+		stage('Create docker image') {
+			steps {
+				bat "docker build -t jinjinesh/shopbridge:${BUILD_NUMBER} --no-cache -f ShopBridge/DockerFile ."
+			}
+		}
+		stage ('push') {
+			steps {
+				bat "docker push jinjinesh/shopbridge:${BUILD_NUMBER}"
+			}
+		}
+		stage ('Stop running container') {
+			steps {
+				echo "=======stop container==========="
+			}
+		}
+		stage ('run docker') {
+			steps {
+				bat "docker run -d -p 9090:80 --name shopbridge jinjinesh/shopbridge:${BUILD_NUMBER}"
+			}
+		}
+		
 	}
 	post {
 		always {
