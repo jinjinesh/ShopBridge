@@ -341,3 +341,5 @@ ASALocalRun/
 healthchecksdb
 .sonarqube
 /ShopBridge.Test/TestResults
+/app/build
+/app
