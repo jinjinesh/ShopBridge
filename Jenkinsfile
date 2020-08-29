@@ -51,6 +51,11 @@ pipeline {
 				bat "dotnet publish -c Release -o app/publish"
 			}
 		}
+		stage('Docker image') {
+			steps {
+				bat "docker build -t jinjinesh/shopbridge:${BUILD_NUMBER} --no-cache -f ShopBridge/DockerFile ."
+			}
+		}
 		stage('Containers') {
 			parallel {
 				stage ('PushtoDTR') {
@@ -63,20 +68,21 @@ pipeline {
 						powershell label: '', script: '''$cID = $(docker ps -qf "name=shopbridge")
 						if($cID){
 							docker container stop $cID;
-							docker ps -aq --no-trunc | %{docker rm $_};
+							docker rm $cID;
 						}'''
 					}
 				}
 			}
 		}
-		stage('Docker image') {
-			steps {
-				bat "docker build -t jinjinesh/shopbridge:${BUILD_NUMBER} --no-cache -f ShopBridge/DockerFile ."
-			}
-		}
 		stage ('Docker deployment') {
 			steps {
-				bat "docker run -d -p 9090:80 --name shopbridge jinjinesh/shopbridge:${BUILD_NUMBER}"
+				powershell label: '', script: '''$port = 6000
+				$branch = ${env.branch_name};
+				if($branch -ne "master"){
+					$port = 6100
+				}
+				docker run -d -p $port:80 --name shopbridge jinjinesh/shopbridge:${BUILD_NUMBER}
+				'''
 			}
 		}
 		
