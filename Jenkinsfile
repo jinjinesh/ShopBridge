@@ -2,6 +2,7 @@ pipeline {
 	agent any
 	environment {
 		scannerHome = tool name: 'sonar_scanner_dotnet', type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
+		port = "${env.BRANCH_NAME == "master" ? 6000 : 6100}"
 	}
 	options {
 	  buildDiscarder logRotator(daysToKeepStr: '10', numToKeepStr: '5')
@@ -76,18 +77,7 @@ pipeline {
 		}
 		stage ('Docker deployment') {
 			steps {
-				echo "${env.branch_name}"
-				powershell label: '', script: '''
-				$branch = ${env.branch_name};
-				echo $branch;
-				if($branch -eq "master"){
-					echo "docker run -d -p 6000:80 --name c_jineshjain_${env.branch_name} jinjinesh/i_jineshjain_${env.branch_name}:${BUILD_NUMBER}"
-					docker run -d -p 6000:80 --name c_jineshjain_${env.branch_name} jinjinesh/i_jineshjain_${env.branch_name}:${BUILD_NUMBER}
-				} else {
-					echo  "docker run -d -p 6100:80 --name c_jineshjain_${env.branch_name} jinjinesh/i_jineshjain_${env.branch_name}:${BUILD_NUMBER}"
-					docker run -d -p 6100:80 --name c_jineshjain_${env.branch_name} jinjinesh/i_jineshjain_${env.branch_name}:${BUILD_NUMBER}
-				}				
-				'''
+				bat "docker run -d -p ${port}:80 --name c_jineshjain_${env.branch_name} jinjinesh/i_jineshjain_${env.branch_name}:${BUILD_NUMBER}"
 			}
 		}
 		
