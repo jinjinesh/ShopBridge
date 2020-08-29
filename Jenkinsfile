@@ -51,6 +51,24 @@ pipeline {
 				bat "dotnet publish -c Release -o app/publish"
 			}
 		}
+		stage('Containers') {
+			parallel {
+				stage ('PushtoDTR') {
+					steps {
+						bat "docker push jinjinesh/shopbridge:${BUILD_NUMBER}"
+					}
+				}
+				stage ('PreContainerCheck') {
+					steps {
+						powershell label: '', script: '''$cID = $(docker ps -qf "name=shopbridge")
+						if($cID){
+							docker container stop $cID;
+							docker ps -aq --no-trunc | %{docker rm $_};
+						}'''
+					}
+				}
+			}
+		}
 		stage('Docker image') {
 			steps {
 				bat "docker build -t jinjinesh/shopbridge:${BUILD_NUMBER} --no-cache -f ShopBridge/DockerFile ."
